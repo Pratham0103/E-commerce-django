@@ -1,0 +1,234 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Checkout | E-Shopper</title>
+    <link href={% static "css/bootstrap.min.css" %} rel="stylesheet">
+    <link href={% static "css/font-awesome.min.css" %} rel="stylesheet">
+    <link href={% static "css/prettyPhoto.css" %} rel="stylesheet">
+    <link href={% static "css/price-range.css" %} rel="stylesheet">
+    <link href={% static "css/animate.css" %} rel="stylesheet">
+	<link href={% static "css/main.css" %} rel="stylesheet">
+	<link href={% static "css/responsive.css" %} rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src={% static "js/html5shiv.js" %}></script>
+    <script src={% static "js/respond.min.js" %}></script>
+    <![endif]-->
+    <link rel="shortcut icon" href={% static "images/ico/favicon.ico" %}>
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href={% static "images/ico/apple-touch-icon-144-precomposed.png" %}>
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href={% static "images/ico/apple-touch-icon-114-precomposed.png" %}>
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href={% static "images/ico/apple-touch-icon-72-precomposed.png" %}>
+    <link rel="apple-touch-icon-precomposed" href={% static "images/ico/apple-touch-icon-57-precomposed.png" %}>
+</head><!--/head-->
+
+<body>
+	<header id="header"><!--header-->
+		<div class="header_top"><!--header_top-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="contactinfo">
+							<ul class="nav nav-pills">
+								<li><a href="#"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
+								<li><a href="#"><i class="fa fa-envelope"></i> info@domain.com</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="social-icons pull-right">
+							<ul class="nav navbar-nav">
+								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+								<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+								<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+								<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header_top-->
+
+		<div class="header-middle"><!--header-middle-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="logo pull-left">
+							<a href="/med/home/"><img src={% static "images/home/logo.png" %} alt="" /></a>
+						</div>
+					</div>
+					<div class="col-sm-8">
+						<div class="shop-menu pull-right">
+							<ul class="nav navbar-nav">
+								<li><a href="/med/account/"><i class="fa fa-user"></i> Account</a></li>
+								<li><a href="/med/cart/"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header-middle-->
+
+		<div class="header-bottom"><!--header-bottom-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-9">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!--/header-bottom-->
+	</header><!--/header-->
+
+
+	<section id="cart_items">
+		<div class="container">
+			<div class="breadcrumbs">
+				<ol class="breadcrumb">
+				  <li><a href="/med/home/">Home</a></li>
+				  <li class="active">Check out</li>
+				</ol>
+			</div><!--/breadcrums-->
+
+			<div class="step-one">
+				<h2 class="heading">Step1</h2>
+			</div>
+        {% if bool == 0 %}
+			<div class="shopper-informations">
+				<div class="row">
+					<div class="col-sm-5 clearfix">
+						<div class="bill-to">
+							<p>Bill To</p>
+							<div class="form-one">
+								<form method="POST" action="/med/checkout/">
+                                    {% csrf_token %}
+									<input type="text" name="fname" placeholder="First Name">
+									<input type="text" name="lname" placeholder="Last Name">
+									<input type="text" name="address" placeholder="Address">
+									<input type="text" name="town" placeholder="Town">
+                                    <input type="text" name="city" placeholder="City">
+									<input type="text" name="zip" placeholder="Zip Code">
+									<input type="text" name="phone" placeholder="Phone Number">
+                                    {{ form.errors }}
+									<input type="submit" value="Submit">
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+            {% else %}
+            <div class="shopper-informations">
+				<div class="row">
+					<div class="col-sm-5 clearfix">
+						<div class="bill-to">
+							<p>Bill To</p>
+                            <label>{{ check.fname }} {{ check.lname }}</label><br>
+                            <label>{{ check.address }}</label><br>
+                            <label>{{ check.town }} </label>,<label>{{ check.city }} </label>-<label> {{ check.zip }}</label><br>
+                            <label>{{ check.phone }}</label><br>
+						</div>
+                        <a href="/med/edit_checkout/"><button class="btn btn-default">Edit</button></a>
+					</div>
+				</div>
+			</div>
+        {% endif %}
+        <div class="step-one">
+				<h2 class="heading">Step2</h2>
+			</div>
+			<div class="review-payment">
+				<h2>Review & Payment</h2>
+			</div>
+
+			<div class="table-responsive cart_info">
+				<table class="table table-condensed">
+					<thead>
+						<tr class="cart_menu">
+							<td class="description">Item</td>
+							<td class="price">Price</td>
+							<td class="quantity">Quantity</td>
+							<td class="total">Total</td>
+							<td></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							{% if cart %}
+                                {% for i in cart %}
+							<td class="cart_description">
+								<h4><a href="">{{ i.product.title }}</a></h4>
+							</td>
+							<td class="cart_price">
+								<p>{{ i.product.price }}</p>
+							</td>
+							<td class="cart_quantity">
+								<div class="cart_quantity_button">
+									<a class="cart_quantity_up" href="/med/add_cart/{{ i.product.id }}"> + </a>
+									<input class="cart_quantity_input" type="text" name="quantity" value="{{ i.quantity }}" autocomplete="off" size="2">
+									<a class="cart_quantity_down" href="/med/sub_cart/{{ i.product.id }}"> - </a>
+								</div>
+							</td>
+							<td class="cart_total">
+								<p class="cart_total_price">{{ i.total_price }}</p>
+							</td>
+							<td class="cart_delete">
+								<a class="cart_quantity_delete" href="/med/del_cart/{{ i.product.id }}"><i class="fa fa-times"></i></a>
+							</td>
+						</tr>
+                                {% endfor %}
+                            {% endif %}
+						</tr>
+						<tr>
+							<td colspan="2">&nbsp;</td>
+							<td colspan="2">
+								<table class="table table-condensed total-result">
+									<tr>
+										<td>Cart Sub Total</td>
+										<td>{{ sum }}</td>
+									</tr>
+									<tr class="shipping-cost">
+										<td>Shipping Cost</td>
+										<td>Free</td>										
+									</tr>
+									<tr>
+										<td>Total</td>
+										<td><span>{{ sum }}</span></td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+        <div class="step-one">
+				<h2 class="heading">Pay Using</h2>
+			</div>
+			<div class="payment-options">
+                    <a class="btn btn-primary" href="/payment/process/">Paypal</a>
+                <a class="btn btn-primary" href="/med/update_cart/">C.O.D</a>
+            </div>
+		</div>
+	</section> <!--/#cart_items-->
+
+
+
+
+    <script src={% static "js/jquery.js" %}></script>
+	<script src={% static "js/price-range.js" %}></script>
+	<script src={% static "js/jquery.scrollUp.min.js" %}></script>
+	<script src={% static "js/bootstrap.min.js" %}></script>
+    <script src={% static "js/jquery.prettyPhoto.js" %}></script>
+    <script src={% static "js/main.js" %}></script>
+</body>
+</html>
